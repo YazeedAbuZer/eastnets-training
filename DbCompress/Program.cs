@@ -42,7 +42,10 @@ namespace DbCompress
                         LastUpdateDate = DateTime.Now
                         //Status = IsFileExist(expectedFilePath)
                     };
-                    list.Add(file);
+                    if (IsFileExist(expectedFilePath))
+                    {
+                        list.Add(file);
+                    }
                 }
 
             }
@@ -56,7 +59,7 @@ namespace DbCompress
 
             string xml = GetXMLFromObject(list);
             string newXml = RemoveAllNamespaces(xml);
-            //DBCon.UpdateFile(newXml);
+            DBCon.UpdateFile(newXml);
 
             if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]))
             {
@@ -117,93 +120,6 @@ namespace DbCompress
                     }
                 }
             }
-
-            //string body = $"<h3 style='color:#ec1010;'>{serverName} Last Check In " + LastCheckIn + "</h3>";
-            //body += "<hr align ='left'; width='400px'>";
-
-            //body += "<table>";
-            //body += "<tr>";
-            //body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> File Name </th>";
-            //body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> Last Update Date </th>";
-            //body += "</tr>";
-
-            //foreach (var file in files)
-            //{
-            //    DateTime lastUpdateDate = file.LastUpdateDate;
-
-            //    if (lastUpdateDate == DateTime.Now)
-            //    {
-            //        if (file.Server == serverName)
-            //        {
-            //            body += "<tr>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.FileName} </td>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.LastUpdateDate} </td>";
-            //            body += "</tr>";
-            //        }
-            //        else
-            //        {
-            //            body += "</table>";
-            //            body += "<br>";
-            //            serverName = file.Server;
-            //            body += $"<h3 style='color: #ec1010;'>{serverName} Last Check In " + LastCheckIn + "</h3>";
-            //            body += "<hr align ='left'; width='400px'>";
-
-            //            if (file.FileName == null)
-            //            {
-            //                continue;
-            //            }
-
-            //            body += "<table>";
-            //            body += "<tr>";
-            //            body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> File Name </th>";
-            //            body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> Last Update Date </th>";
-            //            body += "</tr>";
-
-            //            body += "<tr>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.FileName} </td>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.LastUpdateDate} </td>";
-            //            body += "</tr>";
-
-            //        }
-            //    }
-            //    else
-            //    {//last update Date not today
-            //        if (file.Server == serverName)
-            //        {
-            //            body += "<tr style='background-color: #FF5C5C;'>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.FileName} </td>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.LastUpdateDate} </td>";
-            //            body += "</tr>";
-            //        }
-            //        else
-            //        {
-            //            body += "</table>";
-            //            body += "<br>";
-            //            serverName = file.Server;
-            //            body += $"<h3 style='color: #ec1010;'>{serverName} Last Check In " + LastCheckIn + "</h3>";
-            //            body += "<hr align ='left'; width='400px'>";
-
-            //            if (file.FileName == null)
-            //            {
-            //                continue;
-            //            }
-
-            //            body += "<table>";
-            //            body += "<tr>";
-            //            body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> File Name </th>";
-            //            body += "<th style='background-color:#04AA6D; color:white; align-items:left; padding:5px;'> Last Update Date </th>";
-            //            body += "</tr>";
-
-            //            body += "<tr style='background-color: #FF5C5C;'>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.FileName} </td>";
-            //            body += $"<td style='align-items:left; padding:5px;'> {file.LastUpdateDate} </td>";
-            //            body += "</tr>";
-
-            //        }
-            //    }
-            //}
-            //body += "</table>";
-            //return body;
 
             return output;
         }
